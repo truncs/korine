@@ -1,52 +1,77 @@
-import unittest
-
 class BIT(object):
-    """ Binary indexed trees in python.    
+    """ Binary Index Tree is a datastructure that store
+    cumulative information of the tree giving time complexity of
+    O(logn) for doing cumulative operation accross a given range in
+    an array.
     """
     
-    def __init__(self, array):
-        if len(array) < 1:
-            raise RuntimeError
-        self.bit = [sum(array[k - (k & -k):k]) for k in xrange(0, len(array) + 1)]
-
-
-    def read_frequency(self, idx):
-        """ Read the cumulative sum upto index idx
+    def __init__(self, array=[]):
         """
-        bit_idx = idx + 1
-        sum = 0
-        while (bit_idx > 0):
-            sum += self.bit[bit_idx]
-            bit_idx -= (bit_idx & -bit_idx)
-
-        return sum
-
-
-    def actual_frequency(self, idx):
-        """ Read the actual frequency of at the index idx
         """
+        self.array = [0]
+        for elem in array:
+            self.append(elem)
 
-        bit_idx = idx + 1
-        sum = self.bit[bit_idx]
-
-        if (bit_idx > 0):
-            z = bit_idx - (bit_idx & -bit_idx)
-            bit_idx -= 1
-            
-            while(bit_idx != z) :
-                sum -= self.bit[bit_idx]
-                bit_idx -= bit_idx & -bit_idx
-
-        return sum
-
-    def update_frequency(self, idx, value):
-        """ Update the frequency at the index idx by value
+    def append(self, value):
         """
-
-        bit_idx = idx + 1
-        max_value += len(self.bit) - 1
-
-        while(bit_idx <= max_value):
-            tree[bit_idx] += value
-            bit_idx += bit_idx & (-bit_idx)
         
+        Arguments:
+        - `self`:
+        - `value`:
+        """
+
+        self.array.append(value)
+        start = len(self.array) - 1
+        end = start - (-start & start) 
+        cur = start - 1
+
+        while cur > end:
+            self.array[start] += self.array[cur]
+            cur = cur - (cur & -cur)
+
+        
+    def update(self, index, value):
+        """
+        
+        Arguments:
+        - `self`:
+        - `index`:
+        - `value`:
+        """
+        
+        pass
+
+
+    def get_sum(self, index):
+        """
+        Get the cumulative operation applied
+        from 0 to index.
+        
+        Arguments:
+        - `self`:
+        - `Index`:n
+        """
+
+
+        if index > len(self.array):
+            raise IndexError
+
+        index = index + 1
+        cumulative = 0
+        while index > 0:
+
+            cumulative += self.array[index]
+            index -= (index & -index)
+
+        return cumulative
+    
+    def get(self, index):
+        """
+        Gets the actual value at the
+        index
+        """
+        pass
+
+        
+
+
