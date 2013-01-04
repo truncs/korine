@@ -1,8 +1,9 @@
 class BIT(object):
-    """ Binary Index Tree is a datastructure that store
-    cumulative information of the tree giving time complexity of
-    O(logn) for doing cumulative operation accross a given range in
-    an array.
+    """ Binary Index Tree is a datastructure that is useful
+    for getting the cumulative sum information with a better time
+    complexity than a normal array. It does a tradeoff by making both
+    retrieval of actual value and the cumualtive sum at a particular index
+    O(logn) instead of O(1) and O(n) respectively.
     """
     
     def __init__(self, array=[]):
