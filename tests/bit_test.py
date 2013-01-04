@@ -23,5 +23,10 @@ class TestBit(T.TestCase):
         for i, val in enumerate(expected_sum):
             T.assert_equal(val, self.bit.get_sum(i))
 
+
+    def test_actual_values(self):
+        for i, val in enumerate(self.array):
+            T.assert_equal(val, self.bit.get(i))
+
 if __name__ == '__main__':
     T.run()

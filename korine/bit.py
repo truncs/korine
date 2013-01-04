@@ -70,8 +70,17 @@ class BIT(object):
         Gets the actual value at the
         index
         """
-        pass
+        if index > len(self.array):
+            raise IndexError
 
-        
+        index = index + 1
+        end = index - (index & -index) + 1
 
+        cur = index - 1
+        value = self.array[index]
 
+        while cur >= end:
+            value -= self.array[cur]
+            cur -= (cur & -cur)
+
+        return value
