@@ -25,23 +25,23 @@ class BloomFilter(object):
         self.bitarrays = []
         self.h1 = pyhash.fnv1a_64()
         self.h2 = pyhash.murmur2_x86_64b()
-        for i in self.k:
-            b = bitarray(size, endian='little')
+        for i in xrange(self.k):
+            b = bitarray(self.size, endian='little')
             b.setall(False)
             self.bitarrays.append(b)
 
     def insert(self, element):
         unicode_element = unicode(element)
-        element_hash1 = h1(unicode_element)
-        element_hash2 = h2(unicode_element)
-        for i in range(self.k):
+        element_hash1 = self.h1(unicode_element)
+        element_hash2 = self.h2(unicode_element)
+        for i in xrange(self.k):
             bit_no = (element_hash1 + i*element_hash2) % self.size
             self.bitarrays[i][bit_no] = True
         
         
     def check(self, element):
         unicode_element = unicode(element)
-        element_hash1 = h1(unicode_element1)
-        element_hash2 = h2(unicode_element2)
+        element_hash1 = self.h1(unicode_element)
+        element_hash2 = self.h2(unicode_element)
         
-        return all([self.bitarrays[i][(element_hash1 + i*element_hash2) % self.size] for i in range(k)])
+        return all([self.bitarrays[i][(element_hash1 + i*element_hash2) % self.size] for i in xrange(self.k)])
