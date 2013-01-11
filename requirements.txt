@@ -1,1 +1,3 @@
 testify
+bitarray
+pyhash

@@ -23,7 +23,7 @@ class BIT(object):
             self.array[start] += self.array[cur]
             cur = cur - (cur & -cur)
 
-        
+    # TODO implement update
     def update(self, index, value):
         pass
 
