@@ -19,9 +19,9 @@ class BloomFilter(object):
         approximate membership queries. They only suffer from type 1 false
         positive errors and the error rate can be tuned to specific requirements.
         """
-        self.total_size = 20000
-        self.size = 2000
-        self.k = 10
+        self.total_size = int(round(-capacity * math.log(error_rate) / (math.log(2) ** 2)))
+        self.k = round(self.total_size * math.log(2) / capacity)
+        self.size = round(self.total_size / self.k)
         self.bitarrays = []
         self.h1 = pyhash.fnv1a_64()
         self.h2 = pyhash.murmur2_x86_64b()
