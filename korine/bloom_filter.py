@@ -20,8 +20,8 @@ class BloomFilter(object):
         positive errors and the error rate can be tuned to specific requirements.
         """
         self.total_size = int(round(-capacity * math.log(error_rate) / (math.log(2) ** 2)))
-        self.k = round(self.total_size * math.log(2) / capacity)
-        self.size = round(self.total_size / self.k)
+        self.k = int(round(self.total_size * math.log(2) / capacity))
+        self.size = int(round(self.total_size / self.k))
         self.bitarrays = []
         self.h1 = pyhash.fnv1a_64()
         self.h2 = pyhash.murmur2_x86_64b()
